@@ -5,8 +5,14 @@ export const createUser = async (
   data: CreateUserDto
 ) => {
 
-  // Business Rule #1
-  // (Later we'll check if email already exists)
+  const existingUser = await userRepository.findUserByEmail(
+    data.email
+  );
+
+  if (existingUser) {
+    throw new Error("Email already exists");
+  }
+  
 
   const user = await userRepository.createUser(data);
 
