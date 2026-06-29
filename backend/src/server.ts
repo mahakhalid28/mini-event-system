@@ -1,17 +1,9 @@
-import dotenv from "dotenv";
-dotenv.config();
+import app from "./app";
+import { env } from "./config/env";
+import { logger } from "./config/logger";
 
-dotenv.config();
-import express from "express";
-
-const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Mini Event System API is running ");
-});
-
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`🚀 Server running on port ${PORT}`);
 });
