@@ -1,17 +1,20 @@
 import { CreateUserDto } from "./user.types";
+import * as userRepository from "./user.repository";
 
 export const createUser = async (
   data: CreateUserDto
 ) => {
 
-  console.log("Business Logic Started");
+  // Business Rule #1
+  // (Later we'll check if email already exists)
 
-  console.log(data);
+  const user = await userRepository.createUser(data);
 
   return {
-    id: "temporary-id",
-    fullName: data.fullName,
-    email: data.email,
+    id: user.id,
+    fullName: user.fullName,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt,
   };
-
 };
