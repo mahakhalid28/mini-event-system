@@ -1,6 +1,8 @@
+import bcrypt from "bcrypt";
 import { CreateUserDto } from "./user.types";
 import * as userRepository from "./user.repository";
 
+const SALT_ROUNDS = 10;
 export const createUser = async (
   data: CreateUserDto
 ) => {
@@ -12,9 +14,23 @@ export const createUser = async (
   if (existingUser) {
     throw new Error("Email already exists");
   }
+
+  
+  const hashedPassword = await bcrypt.hash(
+    data.password,
+    SALT_ROUNDS
+  );
+  console.log("Original Password:", data.password);
+console.log("Hashed Password:", hashedPassword);
+
+
+
   
 
-  const user = await userRepository.createUser(data);
+ const user = await userRepository.createUser({
+  ...data,
+  password: hashedPassword,
+});
 
   return {
     id: user.id,
