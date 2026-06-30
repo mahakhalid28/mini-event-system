@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { CreateUserDto } from "./user.types";
 import * as userRepository from "./user.repository";
-
+import { AppError } from "../../errors/AppError";
 const SALT_ROUNDS = 10;
 export const createUser = async (
   data: CreateUserDto
@@ -12,7 +12,10 @@ export const createUser = async (
   );
 
   if (existingUser) {
-    throw new Error("Email already exists");
+    throw new AppError(
+    409,
+    "Email already exists"
+);
   }
 
   

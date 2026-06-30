@@ -5,5 +5,5 @@ import { logger } from "./config/logger";
 const PORT = env.PORT;
 
 app.listen(PORT, () => {
-  logger.info(`🚀 Server running on port ${PORT}`);
+  logger.info(` Server running on port ${PORT}`);
 });
