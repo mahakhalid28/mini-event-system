@@ -1,20 +1,18 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import * as userService from "./user.service";
+import { sendResponse } from "../../common/utils/apiResponse";
+import { asyncHandler } from "../../common/helpers/asyncHandler";
 
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
+export const createUser = asyncHandler(
+  async (req: Request, res: Response) => {
+
     const result = await userService.createUser(req.body);
 
-    res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
+    sendResponse(
+      res,
+      201,
+      "User created successfully",
+      result
+    );
   }
-};
+);
