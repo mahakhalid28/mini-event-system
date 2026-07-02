@@ -5,6 +5,7 @@ export const validate =
   (schema: ZodObject<any>) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
+       console.log("Schema received:", schema);
       schema.parse({
         body: req.body,
       });
